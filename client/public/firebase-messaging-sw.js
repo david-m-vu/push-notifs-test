@@ -7,6 +7,7 @@ importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js')
 // Initialize the Firebase app in the service worker by passing in
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
+// REPLACE WITH YOUR OWN CONFIG
 firebase.initializeApp({
     apiKey: "AIzaSyD82dVDOwu-Y6EXLHyFzx0LTKMMTnJD7Jk",
     authDomain: "push-notifications-ff03e.firebaseapp.com",

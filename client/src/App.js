@@ -1,7 +1,7 @@
 import './App.css';
 import "./firebase.js";
 import { getMessaging, getToken } from "firebase/messaging";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { onMessage } from "firebase/messaging";
 
 
@@ -12,20 +12,18 @@ const notifyUser = (notificationText = "Thank you for enabling notifications!") 
     // Check if the browser supports notifications
     alert("This browser does not support desktop notification")
   } else if (Notification.permission === "granted") {
-    const notification = new Notification(notificationText);
+     new Notification(notificationText);
   } else if (Notification.permission !== "denied") {
     console.log('Requesting permission...');
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
-        const notification = new Notification(notificationText);
+         new Notification(notificationText);
       }
     })
   }
 }
 
 function App() {
-  const [userResponded, setUserResponded] = useState(false);
-
   useEffect(() => {
     notifyUser();
     // Handle foreground messages
@@ -47,16 +45,13 @@ function App() {
     getToken(messaging, { vapidKey: 'BOI9AcoqEC71MNQssauLa9BwghjG_gWOay0kUOg0DSt9Tj4zEoA8wYlXUt8Q6fKGc3d3HA_B_etL5-ZPV3tbsVI' }).then((currentToken) => {
       if (currentToken) {
         // Send the token to your server and update the UI if necessary
-        // ...
         console.log(currentToken);
       } else {
         // Show permission request UI
         console.log('No registration token available. Request permission to generate one.');
-        // ...
       }
     }).catch((err) => {
       console.log('An error occurred while retrieving token. ', err);
-      // ...
     });
   }
 
