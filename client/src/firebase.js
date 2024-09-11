@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging } from "firebase/messaging";
 
+// update this with your own firebase project config (can just make a temp project and you can copy and paste it from there)
 const firebaseConfig = {
     apiKey: "AIzaSyD82dVDOwu-Y6EXLHyFzx0LTKMMTnJD7Jk",
     authDomain: "push-notifications-ff03e.firebaseapp.com",

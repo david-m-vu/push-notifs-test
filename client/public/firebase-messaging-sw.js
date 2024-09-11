@@ -21,6 +21,7 @@ firebase.initializeApp({
 // messages.
 const messaging = firebase.messaging();
 
+// handles background messages (when app is minimized)
 messaging.onBackgroundMessage((payload) => {
     console.log(
       '[firebase-messaging-sw.js] Received background message ',
