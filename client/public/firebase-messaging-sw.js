@@ -21,6 +21,16 @@ firebase.initializeApp({
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
 const messaging = firebase.messaging();
+let reminderInterval;
+
+function showReminder() {
+  const notificationTitle = 'Earthquake Alert';
+  const notificationOptions = {
+    body: 'Take cover!!!',
+    icon: '/earthquake.png'
+  };
+  self.registration.showNotification(notificationTitle, notificationOptions);
+}
 
 // handles background messages (when app is minimized)
 messaging.onBackgroundMessage((payload) => {
@@ -28,33 +38,31 @@ messaging.onBackgroundMessage((payload) => {
     '[firebase-messaging-sw.js] Received background message ',
     payload
   );
-  // Customize notification here
 
+  // Customize notification here
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
-    icon: '/logo512.png',
+    icon: '/earthquake.png',
     sound: '/audio/alert_sound.mp3',
     vibrate: [300, 100, 400],
     requireInteraction: true,
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+
+  showReminder();
+
+  reminderInterval = setInterval(() => {
+    showReminder();
+  }, 5000); // 5 seconds
 });
 
-function showReminder() {
-  const notificationTitle = 'Reminder';
-  const notificationOptions = {
-    body: 'Here is your 5-second reminder',
-    icon: '/logo512.png'
-  };
-  self.registration.showNotification(notificationTitle, notificationOptions);
-}
-
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener('notificationclick', function (event) {
   event.notification.close(); // Close the notification when clicked
-  const audio = new Audio('/audio/alert_sound.mp3'); // Path to your sound file
-  audio.play(); // Play the audio
+  // const audio = new Audio('/audio/alert_sound.mp3'); // Path to your sound file
+  // audio.play(); // Play the audio
+  clearInterval(reminderInterval)
 });
 
 

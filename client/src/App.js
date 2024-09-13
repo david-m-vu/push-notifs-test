@@ -33,10 +33,12 @@ function App() {
       // Extract notification content from payload
       const { title, body, icon } = payload.notification;
 
+      console.log(icon || '/earthquake.png')
+
       // Display the notification using the Web Notifications API
       new Notification(title, {
         body: body,
-        icon: icon || '/logo512.png' // Provide a default icon if not specified
+        icon: icon || '/earthquake.png' // Provide a default icon if not specified
       });
     });
   }, [])
@@ -44,10 +46,9 @@ function App() {
   const retrieveToken = () => {
     getToken(messaging, { vapidKey: 'BOI9AcoqEC71MNQssauLa9BwghjG_gWOay0kUOg0DSt9Tj4zEoA8wYlXUt8Q6fKGc3d3HA_B_etL5-ZPV3tbsVI' }).then((currentToken) => {
       if (currentToken) {
-        // Send the token to your server and update the UI if necessary
-        console.log(currentToken);
+        console.log('New token generated:', currentToken);
+        localStorage.setItem('fcmToken', currentToken);
       } else {
-        // Show permission request UI
         console.log('No registration token available. Request permission to generate one.');
       }
     }).catch((err) => {
@@ -62,7 +63,7 @@ function App() {
       </button>
 
       <button onClick={() => {
-        notifyUser("show stuff plz")
+        notifyUser("Test Notification")
       }}>
         Test Notifcation
       </button>
