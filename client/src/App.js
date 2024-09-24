@@ -47,7 +47,6 @@ function App() {
     getToken(messaging, { vapidKey: 'BOI9AcoqEC71MNQssauLa9BwghjG_gWOay0kUOg0DSt9Tj4zEoA8wYlXUt8Q6fKGc3d3HA_B_etL5-ZPV3tbsVI' }).then((currentToken) => {
       if (currentToken) {
         console.log('New token generated:', currentToken);
-        localStorage.setItem('fcmToken', currentToken);
       } else {
         console.log('No registration token available. Request permission to generate one.');
       }

@@ -27,7 +27,10 @@ function showReminder() {
   const notificationTitle = 'Earthquake Alert';
   const notificationOptions = {
     body: 'Take cover!!!',
-    icon: '/earthquake.png'
+    image: '/earthquake.png',
+    icon: '/earthquake.png',
+    badge: '/earthquake.png',
+    vibrate: [300, 100, 400],
   };
   self.registration.showNotification(notificationTitle, notificationOptions);
 }
@@ -43,13 +46,14 @@ messaging.onBackgroundMessage((payload) => {
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
+    image: '/earthquake.png',
+    badge: '/earthquake.png',
     icon: '/earthquake.png',
-    sound: '/audio/alert_sound.mp3',
     vibrate: [300, 100, 400],
     requireInteraction: true,
   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  // self.registration.showNotification(notificationTitle, notificationOptions);
 
   showReminder();
 
@@ -64,19 +68,3 @@ self.addEventListener('notificationclick', function (event) {
   // audio.play(); // Play the audio
   clearInterval(reminderInterval)
 });
-
-
-// self.addEventListener('activate', function (event) {
-//   console.log('Service worker activated');
-
-//   showReminder();
-
-//   function loop() {
-//     setTimeout(() => {
-//       showReminder();
-//       loop();
-//     }, 5000); // 5 seconds
-//   }
-
-//   loop();
-// });
